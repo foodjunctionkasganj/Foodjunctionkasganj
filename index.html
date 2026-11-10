@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Food Junction - Pure Veg Digital Menu | Taste That Brings You Together</title>
+    <meta name="description" content="Official Food Junction Kasganj 16-Page Restaurant Menu Book. Warm cream & orange light theme. 10% OFF on all foods Diwali Offer.">
+    <meta name="theme-color" content="#f97316">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#fefdfb',
+                            100: '#fdfbf7',
+                            200: '#faf3e8',
+                            300: '#f6ede2',
+                            400: '#eddcc8',
+                            500: '#dfc8af',
+                        },
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom Food Junction Theme Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-cream-ambient text-stone-800 flex flex-col min-h-screen">
+
+    <!-- TOP OFFER HIGHLIGHT MARQUEE STRIP (DYNAMIC VIA ADMIN) -->
+    <div id="top-marquee-strip" class="bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600 text-white text-xs font-black py-1.5 overflow-hidden shadow-xs relative z-50 w-full max-w-full">
+        <div class="marquee-track flex items-center gap-8 whitespace-nowrap" id="marquee-track-content">
+            <span class="flex items-center gap-2 marquee-offer-unit">
+                <span class="text-base" id="marquee-offer-icon">🔥</span>
+                <span id="marquee-offer-text">SPECIAL FOOD OFFER: FLAT 10% OFF ON ALL FOODS!</span>
+                <span id="marquee-offer-code" class="bg-white text-orange-600 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-mono font-bold shadow-xs">CODE: FOOD10</span>
+            </span>
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-utensils"></i>
+                <span>100% PURE VEGETARIAN DELICACIES & TANDOORI SPECIALS</span>
+            </span>
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-phone"></i>
+                <span>ONLINE WHATSAPP ORDER: 7017643199 • CALL: 7017643199, 7017718936</span>
+            </span>
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>NEAR LADDO SWEETS, THANDI SADAK, KASGANJ - 207123</span>
+            </span>
+            <!-- Repeated for infinite marquee -->
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-2 marquee-offer-unit">
+                <span class="text-base">🔥</span>
+                <span class="marquee-offer-text-repeat">SPECIAL FOOD OFFER: FLAT 10% OFF ON ALL FOODS!</span>
+                <span class="marquee-offer-code-repeat bg-white text-orange-600 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-mono font-bold shadow-xs">CODE: FOOD10</span>
+            </span>
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-1.5">
+                <i class="fa-brands fa-whatsapp text-green-300"></i>
+                <span>WHATSAPP ORDER TO: 7017643199</span>
+            </span>
+            <span class="text-orange-200">•</span>
+            <span class="flex items-center gap-1.5">
+                <i class="fa-solid fa-utensils"></i>
+                <span>100% PURE VEGETARIAN DELICACIES & TANDOORI SPECIALS</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER WITH OFFICIAL LOGO -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-orange-100 shadow-xs w-full max-w-full">
+        <div class="max-w-7xl mx-auto px-2.5 sm:px-6 py-2 sm:py-2.5 flex items-center justify-between gap-1.5 sm:gap-3 w-full">
+            
+            <!-- Brand Logo & Identity -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-amber-50/80 border border-orange-200 p-1 shadow-xs shrink-0 overflow-hidden flex items-center justify-center">
+                    <img src="assets/logo.jpg" alt="Food Junction Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col justify-center">
+                    <div class="flex items-center gap-1.5">
+                        <h1 class="text-sm sm:text-xl md:text-2xl font-black font-brand tracking-wide text-brand-gradient leading-none whitespace-nowrap">
+                            FOOD JUNCTION
+                        </h1>
+                        <span class="hidden sm:inline-block px-1.5 py-0.2 rounded-full bg-orange-100 text-orange-700 text-[10px] font-bold border border-orange-200">
+                            Kasganj
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-1 mt-0.5">
+                        <span class="sm:hidden text-[9px] text-orange-700 font-extrabold tracking-wider uppercase font-mono">
+                            📍 Kasganj
+                        </span>
+                        <p class="hidden sm:block text-xs text-stone-500 font-medium tracking-wide">
+                            Taste That Brings You Together
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Actions -->
+            <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                <!-- Online WhatsApp Order Button -->
+                <button id="btn-header-cart" class="relative px-2 py-1 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-xs flex items-center gap-1 shadow-xs transition active:scale-95 shrink-0" title="View Order & WhatsApp">
+                    <i class="fa-brands fa-whatsapp text-xs sm:text-sm text-green-200"></i>
+                    <span class="text-[11px] sm:text-xs font-bold">Order</span>
+                    <span id="header-cart-badge" class="px-1.5 py-0.2 rounded-full bg-white text-emerald-700 text-[9px] font-black font-mono ml-0.5 hidden">0</span>
+                </button>
+
+                <!-- Search Dishes Shortcut Button (hidden on mobile, visible on desktop) -->
+                <button id="btn-scroll-search" class="hidden sm:flex px-3 py-1.5 rounded-xl bg-orange-50 border border-orange-200 hover:bg-orange-100 text-orange-700 transition text-xs font-bold items-center gap-1.5 shadow-xs">
+                    <i class="fa-solid fa-magnifying-glass text-orange-600"></i>
+                    <span>Search</span>
+                </button>
+
+                <!-- Language Toggle Button -->
+                <div class="flex rounded-lg sm:rounded-xl bg-stone-100 p-0.5 border border-stone-200 text-xs shrink-0">
+                    <button class="lang-btn px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold active bg-orange-500 text-white transition shadow-xs" data-lang="both">All</button>
+                    <button class="lang-btn px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold text-stone-600 hover:text-stone-900 transition" data-lang="en">EN</button>
+                    <button class="lang-btn px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-[11px] font-bold text-stone-600 hover:text-stone-900 transition font-hindi" data-lang="hi">हिन्दी</button>
+                </div>
+
+                <!-- Call Button -->
+                <a href="tel:7017643199" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white flex items-center justify-center transition shadow-xs hover:scale-105 active:scale-95 shrink-0 pulse-call" title="Call 7017643199" aria-label="Call Food Junction">
+                    <i class="fa-solid fa-phone text-[10px] sm:text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- OFFER HIGHLIGHT STRIP (DYNAMIC VIA ADMIN) -->
+    <section id="offer-banner-section" class="max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4 pb-1 w-full">
+        <div class="rounded-2xl bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border border-orange-200/80 p-3 sm:p-4 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 text-7xl opacity-10 pointer-events-none select-none text-orange-400">
+                <i class="fa-solid fa-utensils"></i>
+            </div>
+            
+            <div class="flex items-center gap-2.5 sm:gap-3.5 z-10">
+                <div id="offer-card-icon" class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white text-lg sm:text-xl shadow-md shadow-orange-300 shrink-0">
+                    <i class="fa-solid fa-tag"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1.5 sm:gap-2">
+                        <span id="offer-badge-text" class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 border border-orange-200">
+                            Special Food Offer
+                        </span>
+                        <span class="text-[11px] sm:text-xs text-orange-700 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-sparkles text-[10px]"></i> Valid on all foods
+                        </span>
+                    </div>
+                    <h2 id="offer-headline-text" class="text-sm sm:text-lg font-black text-stone-900 mt-0.5 leading-snug">
+                        FLAT 10% OFF ON ALL FOODS
+                    </h2>
+                    <p id="offer-desc-text" class="hidden sm:block text-xs text-stone-600 mt-0.5">
+                        Order delicious North Indian gravies, Paneer, Chaap, Momos & Pizzas in Kasganj! Prices shown with discount.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between sm:justify-end gap-2 sm:gap-2.5 z-10 shrink-0 pt-0.5 sm:pt-0">
+                <a href="https://wa.me/917017643199" target="_blank" class="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-100/90 border border-emerald-300 px-3 py-1.5 rounded-xl shadow-xs hover:bg-emerald-200 transition">
+                    <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                    <span>WhatsApp: 7017643199</span>
+                </a>
+                <div id="offer-code-container" class="px-3 py-1 sm:py-1.5 rounded-xl bg-white border border-orange-300 flex items-center gap-2 shadow-xs">
+                    <span class="text-[9px] text-stone-400 uppercase font-mono font-bold">Code:</span>
+                    <span id="offer-code-text" class="text-xs font-black text-orange-600 tracking-wider font-mono">FOOD10</span>
+                </div>
+                <button id="btn-offer-browse" class="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl btn-brand text-white text-xs font-bold shadow-xs flex items-center gap-1.5">
+                    <span>Browse Dishes</span>
+                    <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4-BANNER SLIDER (CAROUSEL) -->
+    <section class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 w-full">
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-orange-200/80 bg-white shadow-md">
+            
+            <!-- Slides Container -->
+            <div id="banner-slider" class="flex transition-transform duration-500 ease-out will-change-transform">
+                
+                <!-- SLIDE 1: Dynamic Featured Offer Banner -->
+                <div class="w-full shrink-0 p-3.5 sm:p-7 md:p-8 lg:p-10 bg-gradient-to-r from-amber-50 via-orange-50/80 to-amber-100/60 relative flex flex-row items-center justify-between min-h-[175px] sm:min-h-[250px] md:min-h-[280px] overflow-hidden gap-2.5 sm:gap-4">
+                    <div class="flex-1 max-w-[62%] sm:max-w-xl space-y-1 sm:space-y-2 z-10 py-1">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/90 border border-orange-200 text-orange-700 text-[10px] sm:text-xs font-bold shadow-xs">
+                            <i class="fa-solid fa-fire text-xs text-orange-500"></i>
+                            <span id="slide1-badge-text">Food Junction Special</span>
+                        </span>
+                        <h2 id="slide1-headline-text" class="text-base sm:text-3xl md:text-4xl font-black text-stone-900 leading-tight">
+                            Flat 10% OFF On All Foods!
+                        </h2>
+                        <p id="slide1-desc-text" class="hidden sm:block text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                            Enjoy royal North Indian gravies, smoking hot chaap, cheese momos, fresh pizzas & thalis in Kasganj.
+                        </p>
+                        <div class="pt-1 sm:pt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+                            <button id="btn-slide-browse" class="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl btn-brand text-white font-bold text-[11px] sm:text-xs flex items-center gap-1.5 shadow-xs">
+                                <span>Explore Dishes</span>
+                                <i class="fa-solid fa-utensils text-[10px]"></i>
+                            </button>
+                            <span id="slide1-code-badge" class="text-[10px] sm:text-xs text-orange-700 font-mono font-bold bg-orange-100 px-2 py-1 rounded-lg border border-orange-200">
+                                FOOD10
+                            </span>
+                            <span class="hidden sm:inline-flex items-center gap-1 text-[10px] sm:text-xs text-emerald-800 font-bold bg-emerald-50 px-2 py-1 rounded-lg border border-emerald-200">
+                                <i class="fa-brands fa-whatsapp text-emerald-600"></i> Order: 7017643199
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Food Feast Image with Drop Shadow -->
+                    <div class="w-[38%] sm:w-auto sm:max-w-[42%] md:max-w-[46%] lg:max-w-[48%] flex items-center justify-center sm:justify-end z-10 shrink-0 select-none">
+                        <img src="assets/banner_food.png" 
+                             alt="Flat 10% OFF On All Foods - Pizza, Burger, Fries, Shake & Momos" 
+                             class="w-full max-h-[125px] sm:max-h-[210px] md:max-h-[250px] object-contain banner-food-shadow">
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: Royal Paneer & Tandoori Feast -->
+                <div class="w-full shrink-0 p-3.5 sm:p-7 md:p-8 lg:p-10 bg-gradient-to-r from-orange-50 via-amber-50/70 to-stone-50 relative flex flex-row items-center justify-between min-h-[175px] sm:min-h-[250px] md:min-h-[280px] overflow-hidden gap-2.5 sm:gap-4">
+                    <div class="flex-1 max-w-[62%] sm:max-w-xl space-y-1 sm:space-y-2 z-10 py-1">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/90 border border-orange-200 text-orange-700 text-[10px] sm:text-xs font-bold shadow-xs">
+                            <i class="fa-solid fa-crown text-orange-500 text-[10px]"></i>
+                            <span>Royal Specialties</span>
+                        </span>
+                        <h2 class="text-base sm:text-3xl md:text-4xl font-black text-stone-900 leading-tight">
+                            Shahi Paneer & Dal Makhani Feast
+                        </h2>
+                        <p class="hidden sm:block text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                            24-hour slow-simmered Dal Makhani, velvety Shahi Paneer, Soya Malai Chaap, and piping hot Butter Garlic Naans.
+                        </p>
+                        <div class="pt-1 sm:pt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+                            <button data-goto-category="main-paneer" class="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl btn-brand text-white font-bold text-[11px] sm:text-xs flex items-center gap-1.5 shadow-xs">
+                                <span>Paneer Specials</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <span class="hidden sm:inline-block text-xs text-stone-600 font-semibold bg-white/90 px-2.5 py-1.5 rounded-lg border border-stone-200">
+                                🌟 Pure Desi Ghee
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Shahi Paneer & Dal Makhani Image with Drop Shadow -->
+                    <div class="w-[38%] sm:w-auto sm:max-w-[42%] md:max-w-[46%] lg:max-w-[48%] flex items-center justify-center sm:justify-end z-10 shrink-0 select-none">
+                        <img src="assets/banner_paneer.png" 
+                             alt="Shahi Paneer & Dal Makhani Feast with Butter Naan & Jeera Rice" 
+                             class="w-full max-h-[125px] sm:max-h-[210px] md:max-h-[250px] object-contain banner-food-shadow">
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: Evening Fast Food & Momos -->
+                <div class="w-full shrink-0 p-3.5 sm:p-7 md:p-8 lg:p-10 bg-gradient-to-r from-rose-50/70 via-orange-50 to-amber-50 relative flex flex-row items-center justify-between min-h-[175px] sm:min-h-[250px] md:min-h-[280px] overflow-hidden gap-2.5 sm:gap-4">
+                    <div class="flex-1 max-w-[62%] sm:max-w-xl space-y-1 sm:space-y-2 z-10 py-1">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/90 border border-red-200 text-red-700 text-[10px] sm:text-xs font-bold shadow-xs">
+                            <i class="fa-solid fa-fire text-red-500 text-[10px]"></i>
+                            <span>Evening Snacks</span>
+                        </span>
+                        <h2 class="text-base sm:text-3xl md:text-4xl font-black text-stone-900 leading-tight">
+                            Kurkure Momos, Pizzas & Chaap
+                        </h2>
+                        <p class="hidden sm:block text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                            Crunchy Cheese Blast Momos, Honey Chilli Potato, Hakka Noodles, Pav Bhaji, and freshly baked Gourmet Pizzas.
+                        </p>
+                        <div class="pt-1 sm:pt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+                            <button data-goto-category="momos" class="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl btn-brand text-white font-bold text-[11px] sm:text-xs flex items-center gap-1.5 shadow-xs">
+                                <span>Momos & Snacks</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <span class="hidden sm:inline-block text-xs text-red-700 font-semibold bg-white/90 px-2.5 py-1.5 rounded-lg border border-red-200">
+                                🔥 Hot & Crispy
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Momos, Pizza & Chaap Roll Image with Drop Shadow -->
+                    <div class="w-[38%] sm:w-auto sm:max-w-[42%] md:max-w-[46%] lg:max-w-[48%] flex items-center justify-center sm:justify-end z-10 shrink-0 select-none pb-1">
+                        <img src="assets/banner_momos.png?v=2" 
+                             alt="Kurkure Momos, Pizzas & Chaap Rolls with Mint & Red Chutney" 
+                             class="w-full max-h-[125px] sm:max-h-[210px] md:max-h-[255px] object-contain banner-food-shadow">
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: Family Thali & Combos -->
+                <div class="w-full shrink-0 p-3.5 sm:p-7 md:p-8 lg:p-10 bg-gradient-to-r from-amber-50 via-stone-50 to-orange-50 relative flex flex-row items-center justify-between min-h-[175px] sm:min-h-[250px] md:min-h-[280px] overflow-hidden gap-2.5 sm:gap-4">
+                    <div class="flex-1 max-w-[62%] sm:max-w-xl space-y-1 sm:space-y-2 z-10 py-1">
+                        <span class="inline-flex items-center gap-1 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/90 border border-emerald-200 text-emerald-800 text-[10px] sm:text-xs font-bold shadow-xs">
+                            <i class="fa-solid fa-plate-wheat text-emerald-600 text-[10px]"></i>
+                            <span>Grand Value Meals</span>
+                        </span>
+                        <h2 class="text-base sm:text-3xl md:text-4xl font-black text-stone-900 leading-tight">
+                            F.J. Special Royal Thali & Combos
+                        </h2>
+                        <p class="hidden sm:block text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
+                            Grand feast with Paneer, Dal Makhani, Mix Veg, Rice, Baby Naan, Lachha Naan, Raita, Salad & Papad.
+                        </p>
+                        <div class="pt-1 sm:pt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+                            <button data-goto-category="thali" class="px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-xl btn-brand text-white font-bold text-[11px] sm:text-xs flex items-center gap-1.5 shadow-xs">
+                                <span>Royal Thalis</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                            <span class="hidden sm:inline-block text-xs text-emerald-800 font-semibold bg-white/90 px-2.5 py-1.5 rounded-lg border border-emerald-200">
+                                🍽️ Full Feast
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Grand Thali Image with Drop Shadow -->
+                    <div class="w-[38%] sm:w-auto sm:max-w-[42%] md:max-w-[46%] lg:max-w-[48%] flex items-center justify-center sm:justify-end z-10 shrink-0 select-none pb-1">
+                        <img src="assets/banner_thali.png" 
+                             alt="F.J. Special Royal Thali & Combos - Thali, Pizza, Burger, Fries & Cold Drink" 
+                             class="w-full max-h-[125px] sm:max-h-[210px] md:max-h-[255px] object-contain banner-food-shadow">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Slider Navigation Arrows (hidden on touch mobile, visible on desktop) -->
+            <button id="btn-prev-slide" class="hidden sm:flex absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-orange-500 hover:text-white text-stone-700 border border-stone-200 items-center justify-center transition shadow-md z-20" aria-label="Previous Slide">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button id="btn-next-slide" class="hidden sm:flex absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-orange-500 hover:text-white text-stone-700 border border-stone-200 items-center justify-center transition shadow-md z-20" aria-label="Next Slide">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+
+            <!-- Slider Dots -->
+            <div id="slider-dots" class="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20">
+                <!-- Dynamically initialized -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- DIGITAL FOOD DIRECTORY WITH SEARCH & CATEGORIES (BROWSE ONLY) -->
+    <!-- ======================================================== -->
+    <div id="view-section-list" class="w-full">
+        
+        <!-- Search & Filter Bar (Optimized Sticky Top for Mobile) -->
+        <section class="sticky top-[52px] sm:top-[61px] z-30 bg-white/95 backdrop-blur-md border-b border-stone-200/90 pt-2.5 sm:pt-3 pb-2 shadow-xs">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 space-y-2 sm:space-y-2.5">
+                
+                <!-- Search Bar -->
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-stone-400 text-sm"></i>
+                    <input type="text" id="search-input" 
+                           placeholder="Search 168 dishes (Shahi Paneer, Chaap, Momos, Pizza)..." 
+                           class="w-full pl-10 pr-10 py-2 sm:py-2.5 rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 text-sm text-stone-900 placeholder-stone-400 transition outline-none shadow-inner">
+                    <button id="search-clear" class="absolute right-3 text-stone-400 hover:text-stone-700 hidden p-1">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Quick Filter Chips & Count -->
+                <div class="flex items-center justify-between gap-2 overflow-x-auto no-scrollbar pb-0.5">
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button class="filter-chip active text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg bg-orange-500 text-white border border-orange-500 transition flex items-center gap-1 shadow-xs" data-filter="all">
+                            <span>All Items</span>
+                        </button>
+                        <button class="filter-chip text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-orange-600 hover:bg-orange-50 transition flex items-center gap-1.5 shadow-xs" data-filter="veg">
+                            <span class="veg-indicator"></span>
+                            <span>Pure Veg</span>
+                        </button>
+                        <button class="filter-chip text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-orange-600 hover:bg-orange-50 transition flex items-center gap-1 shadow-xs" data-filter="bestseller">
+                            <i class="fa-solid fa-fire text-orange-500 text-[11px]"></i>
+                            <span>Bestsellers</span>
+                        </button>
+                        <button class="filter-chip text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-orange-600 hover:bg-orange-50 transition flex items-center gap-1 shadow-xs" data-filter="special">
+                            <i class="fa-solid fa-crown text-amber-500 text-[11px]"></i>
+                            <span>Special</span>
+                        </button>
+                        <button class="filter-chip text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-orange-600 hover:bg-orange-50 transition flex items-center gap-1 shadow-xs" data-filter="under100">
+                            <i class="fa-solid fa-tag text-emerald-600 text-[11px]"></i>
+                            <span>Under ₹100</span>
+                        </button>
+                    </div>
+                    <div class="shrink-0 text-xs text-stone-500 font-mono">
+                        <span id="items-found-count" class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-orange-50 border border-orange-200 text-orange-700 font-bold text-[11px] sm:text-xs">168 Dishes</span>
+                    </div>
+                </div>
+
+                <!-- Sticky Horizontal Category Pills -->
+                <div id="category-scroll" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                    <!-- Dynamically populated via js/app.js -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Clean Menu Cards Grid -->
+        <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 pb-36 sm:pb-12">
+            <div id="items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5">
+                <!-- Dynamically populated via js/app.js -->
+            </div>
+        </main>
+
+    </div>
+
+    <!-- FLOATING CART / ORDER BAR (WHEN ITEMS ARE IN PLATE) -->
+    <aside id="floating-cart-bar" class="fixed bottom-16 sm:bottom-6 left-1/2 -translate-x-1/2 w-[94%] sm:w-auto sm:min-w-[430px] max-w-lg z-40 hidden floating-order-bar">
+        <div class="bg-stone-900/95 backdrop-blur-md border border-stone-700/80 rounded-2xl p-2.5 sm:p-3 shadow-2xl flex items-center justify-between gap-3 text-white">
+            <div class="flex items-center gap-2.5 min-w-0 pl-1 cursor-pointer" id="cart-bar-trigger">
+                <div class="relative w-9 h-9 rounded-xl bg-orange-500 text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <i class="fa-solid fa-bag-shopping text-sm"></i>
+                    <span id="float-cart-count" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-emerald-500 text-white text-[10px] font-black flex items-center justify-center border-2 border-stone-900">0</span>
+                </div>
+                <div class="truncate">
+                    <div class="flex items-baseline gap-1.5">
+                        <span id="float-cart-price" class="text-sm sm:text-base font-black text-white font-mono">₹0</span>
+                        <span id="float-cart-orig-price" class="text-[11px] text-stone-400 line-through font-mono">₹0</span>
+                        <span class="text-[9px] font-bold text-emerald-400 bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-800">10% Off</span>
+                    </div>
+                    <p class="text-[10px] text-stone-300 truncate">Kasganj Delivery • WhatsApp: 7017643199</p>
+                </div>
+            </div>
+            
+            <button id="btn-open-order-modal" class="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white text-xs font-black flex items-center gap-1.5 shrink-0 shadow-md active:scale-95 transition">
+                <i class="fa-brands fa-whatsapp text-sm"></i>
+                <span>View Order</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+        </div>
+    </aside>
+
+    <!-- FLOATING MOBILE BOTTOM NAVIGATION BAR (SMART THUMB REACH) -->
+    <aside id="mobile-bottom-nav" class="fixed bottom-3 inset-x-0 mx-auto w-[94%] max-w-sm z-40 sm:hidden flex items-center justify-between bg-stone-900/95 backdrop-blur-md text-white px-3.5 py-2 rounded-full shadow-2xl border border-stone-700/80 mobile-nav-safe">
+        <!-- Open Categories Sheet Button -->
+        <button id="btn-open-category-sheet" class="flex items-center gap-1.5 text-xs font-bold text-white hover:text-orange-400 active:scale-95 transition">
+            <i class="fa-solid fa-bars-staggered text-orange-400 text-sm"></i>
+            <span>Categories</span>
+        </button>
+
+        <span class="text-stone-700 font-thin">|</span>
+
+        <!-- Order Button with Live Badge -->
+        <button id="btn-mobile-order" class="flex items-center gap-1.5 text-xs font-bold text-orange-400 hover:text-orange-300 active:scale-95 transition relative">
+            <i class="fa-solid fa-bag-shopping text-sm text-orange-400"></i>
+            <span>Order</span>
+            <span id="mobile-cart-badge" class="px-1.5 py-0.2 rounded-full bg-emerald-500 text-white text-[9px] font-black font-mono hidden">0</span>
+        </button>
+
+        <span class="text-stone-700 font-thin">|</span>
+
+        <!-- Quick Call Restaurant (7017643199) -->
+        <a href="tel:7017643199" class="flex items-center gap-1 text-xs font-bold text-emerald-400 hover:text-emerald-300 active:scale-95 transition">
+            <i class="fa-solid fa-phone text-xs"></i>
+            <span>Call</span>
+        </a>
+
+        <!-- Scroll To Top (Hidden initially, shows after scrolling) -->
+        <button id="btn-mobile-top" class="w-6 h-6 rounded-full bg-stone-800 hover:bg-orange-500 text-stone-300 hover:text-white flex items-center justify-center transition text-xs hidden active:scale-90" title="Back to top">
+            <i class="fa-solid fa-arrow-up text-[10px]"></i>
+        </button>
+    </aside>
+
+    <!-- ONLINE WHATSAPP ORDER MODAL (7017643199) -->
+    <div id="order-modal" class="fixed inset-0 z-50 bg-stone-900/70 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="w-full max-w-lg bg-white border border-stone-200 rounded-3xl shadow-2xl flex flex-col max-h-[92vh] modal-scale-in overflow-hidden">
+            
+            <!-- Modal Header -->
+            <div class="px-5 py-3.5 border-b border-stone-100 flex items-center justify-between bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-xs">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-black text-stone-900 text-base leading-tight">Order Online on WhatsApp</h3>
+                        <p class="text-[11px] text-stone-600 font-medium">Direct delivery in Kasganj • Ph: <span class="font-bold text-emerald-700">7017643199</span></p>
+                    </div>
+                </div>
+                <button id="btn-close-order-modal" class="w-8 h-8 rounded-full bg-white border border-stone-200 text-stone-600 hover:bg-stone-100 flex items-center justify-center active:scale-90 transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-4 sm:p-5 overflow-y-auto no-scrollbar space-y-4">
+                
+                <!-- Order Items Section -->
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-stone-500">Selected Dishes (<span id="modal-items-count">0</span>)</h4>
+                        <button id="btn-clear-cart" class="text-[11px] text-red-600 hover:text-red-700 font-semibold hidden">Clear Plate</button>
+                    </div>
+                    
+                    <div id="modal-cart-items" class="space-y-2">
+                        <!-- Populated dynamically via js -->
+                    </div>
+                </div>
+
+                <!-- Bill Breakdown -->
+                <div id="modal-bill-section" class="bg-stone-50 rounded-2xl p-3.5 border border-stone-200 space-y-1.5 text-xs">
+                    <div class="flex items-center justify-between text-stone-600">
+                        <span>Original Item Total</span>
+                        <span id="modal-orig-total" class="font-mono font-semibold">₹0</span>
+                    </div>
+                    <div id="modal-discount-row" class="flex items-center justify-between text-emerald-700 font-semibold">
+                        <span class="flex items-center gap-1">
+                            <i id="modal-discount-icon" class="fa-solid fa-tag text-xs text-emerald-600"></i>
+                            <span id="modal-discount-label">Special 10% Discount</span>
+                        </span>
+                        <span id="modal-discount-amt" class="font-mono font-bold">-₹0</span>
+                    </div>
+                    <div class="border-t border-stone-200 pt-2 flex items-center justify-between text-sm font-black text-stone-900">
+                        <span>Grand Total Payable</span>
+                        <span id="modal-final-total" class="font-mono text-base text-orange-700">₹0</span>
+                    </div>
+                </div>
+
+                <!-- Customer Delivery Details Form (Required by User) -->
+                <form id="order-details-form" class="space-y-3 pt-1" onsubmit="return false;">
+                    <div class="border-t border-stone-200 pt-3">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <h4 class="text-xs font-extrabold uppercase tracking-wider text-orange-800 flex items-center gap-1.5">
+                                <i class="fa-solid fa-location-dot text-orange-600"></i>
+                                <span>Customer & Delivery Details</span>
+                            </h4>
+                            <span class="text-[10px] text-orange-700 font-bold bg-orange-100 px-2 py-0.5 rounded-full">Required</span>
+                        </div>
+
+                        <!-- Customer Name -->
+                        <div class="space-y-1">
+                            <label for="cust-name" class="block text-[11px] font-bold text-stone-700">Customer Name <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                                <input type="text" id="cust-name" required placeholder="e.g. Rahul Sharma" 
+                                       class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-stone-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition bg-white shadow-xs">
+                            </div>
+                        </div>
+
+                        <!-- Customer Phone -->
+                        <div class="space-y-1 mt-2.5">
+                            <label for="cust-phone" class="block text-[11px] font-bold text-stone-700">Contact Number (10-Digit Mobile) <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                                <input type="tel" id="cust-phone" required placeholder="10-digit mobile number, e.g. 9876543210" maxlength="10"
+                                       class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-stone-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition bg-white shadow-xs">
+                            </div>
+                        </div>
+
+                        <!-- Delivery Address -->
+                        <div class="space-y-1 mt-2.5">
+                            <label for="cust-address" class="block text-[11px] font-bold text-stone-700">Delivery Address in Kasganj <span class="text-red-500">*</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-map-location-dot absolute left-3 top-3 text-stone-400 text-xs"></i>
+                                <textarea id="cust-address" required rows="2" placeholder="House/Shop #, Street / Colony, Landmark, Kasganj" 
+                                          class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-stone-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition bg-white shadow-xs"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Cooking Request / Special Note (Optional) -->
+                        <div class="space-y-1 mt-2.5">
+                            <label for="cust-note" class="block text-[11px] font-bold text-stone-700">Special Cooking Request <span class="text-stone-400 text-[10px]">(Optional)</span></label>
+                            <div class="relative">
+                                <i class="fa-solid fa-pencil absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                                <input type="text" id="cust-note" placeholder="e.g. Less spicy, send extra green chutney & spoons" 
+                                       class="w-full pl-8 pr-3 py-2 text-xs rounded-xl border border-stone-300 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition bg-white shadow-xs">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+            <!-- Modal Footer (Action CTA) -->
+            <div class="p-3.5 sm:p-4 bg-stone-50 border-t border-stone-200">
+                <button id="btn-submit-whatsapp-order" type="button" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 hover:from-emerald-500 hover:to-green-500 text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-98 transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Send Order on WhatsApp (7017643199)</span>
+                </button>
+                <p class="text-[10px] text-center text-stone-500 mt-2 flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-shield-check text-emerald-600"></i>
+                    <span>Direct WhatsApp Message to 7017643199 • Instant Order Confirmation</span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MOBILE CATEGORIES BOTTOM SHEET DRAWER -->
+    <div id="category-sheet-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div id="category-sheet-backdrop" class="absolute inset-0 bg-stone-900/60 backdrop-blur-xs bottom-sheet-backdrop opacity-0"></div>
+        
+        <!-- Sheet Container -->
+        <div id="category-sheet-panel" class="absolute bottom-0 inset-x-0 bg-white rounded-t-3xl border-t border-stone-200 shadow-2xl max-h-[80vh] flex flex-col bottom-sheet-panel translate-y-full">
+            <!-- Sheet Header with Drag Pill -->
+            <div class="px-5 pt-3 pb-3 border-b border-stone-100 sticky top-0 bg-white rounded-t-3xl z-10">
+                <div class="w-10 h-1 bg-stone-300 rounded-full mx-auto mb-3"></div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-extrabold text-stone-900 flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-orange-500"></i>
+                            <span>Menu Categories</span>
+                        </h3>
+                        <p class="text-[11px] text-stone-500 mt-0.5">Tap any category to jump directly to it</p>
+                    </div>
+                    <button id="btn-close-category-sheet" class="w-8 h-8 rounded-full bg-stone-100 text-stone-500 flex items-center justify-center hover:bg-stone-200 active:scale-90 transition">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Categories Grid / List in Bottom Sheet -->
+            <div id="sheet-categories-list" class="p-3.5 overflow-y-auto no-scrollbar space-y-1.5 pb-10">
+                <!-- Dynamically populated via js/app.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-stone-100/90 border-t border-stone-200/80 py-10 px-4 mt-12 text-stone-600 text-xs">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white border border-orange-200 p-1 flex items-center justify-center overflow-hidden shadow-xs">
+                        <img src="assets/logo.jpg" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <span class="font-bold text-stone-900 font-brand text-lg tracking-wider">FOOD JUNCTION</span>
+                </div>
+                <p class="text-stone-600 leading-relaxed">
+                    "Taste That Brings You Together" — Kasganj's beloved restaurant destination for authentic North Indian, tandoori, Chinese, and festive meals.
+                </p>
+                <div class="flex items-center gap-2 pt-1">
+                    <span class="veg-indicator"></span>
+                    <span class="text-[11px] text-emerald-700 font-bold">100% Pure Vegetarian Kitchen Available</span>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-stone-900 text-sm uppercase tracking-wider text-orange-700">Visit Us & Hours</h4>
+                <p class="text-stone-700">
+                    <i class="fa-solid fa-map-pin text-orange-600 mr-1.5"></i>
+                    Near Laddo Sweets, Thandi Sadak, Kasganj - 207123
+                </p>
+                <p class="text-stone-700">
+                    <i class="fa-solid fa-clock text-orange-600 mr-1.5"></i>
+                    Open Daily: 11:00 AM – 11:00 PM
+                </p>
+                <p class="text-stone-700">
+                    <i class="fa-solid fa-chair text-orange-600 mr-1.5"></i>
+                    Dine-in & Takeaway Available
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-bold text-stone-900 text-sm uppercase tracking-wider text-orange-700">Direct Contact & WhatsApp</h4>
+                <p>
+                    <a href="https://wa.me/917017643199" target="_blank" class="hover:text-emerald-600 transition flex items-center gap-2 font-bold text-stone-900">
+                        <i class="fa-brands fa-whatsapp text-emerald-600 text-base"></i> +91 7017643199 <span class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-mono">WhatsApp Order</span>
+                    </a>
+                </p>
+                <p>
+                    <a href="tel:7017718936" class="hover:text-orange-600 transition flex items-center gap-2 font-medium">
+                        <i class="fa-solid fa-phone text-orange-600"></i> +91 7017718936 <span class="text-[10px] text-stone-400">Support</span>
+                    </a>
+                </p>
+                <div class="pt-2">
+                    <button id="btn-footer-order" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 text-white font-bold text-xs shadow-xs hover:from-emerald-500 hover:to-green-500 transition active:scale-95">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Order via WhatsApp: 7017643199
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 mt-8 border-t border-stone-200 text-center text-stone-500 text-[11px] flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+                <span>© 2026 Food Junction. All rights reserved.</span>
+            </div>
+            <span id="footer-offer-text" class="text-orange-700 font-semibold">✨ Taste That Brings You Together — Kasganj</span>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast-notice" class="toast-notice bg-stone-900 text-white text-xs font-semibold px-4 py-2.5 rounded-full shadow-2xl border border-stone-700 flex items-center gap-2">
+        <i id="toast-icon" class="fa-solid fa-check-circle text-emerald-400"></i>
+        <span id="toast-msg">Item added to plate!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/menu-data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

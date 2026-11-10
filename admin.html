@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Food Junction - Admin Portal | Orders & Analytics</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#ea580c">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#fefdfb',
+                            100: '#fdfbf7',
+                            200: '#faf3e8',
+                            300: '#f6ede2',
+                        },
+                        brand: {
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap">
+    <!-- Dynamic Base URL Resolution (supports /admin, /admin/, and admin.html) -->
+    <script>
+        if (window.location.protocol !== 'file:') {
+            const base = document.createElement('base');
+            base.href = '/';
+            document.head.appendChild(base);
+        }
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        .shake-anim {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
+        }
+        .pin-dot {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pin-dot.filled {
+            background-color: #ea580c;
+            border-color: #ea580c;
+            transform: scale(1.15);
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800 min-h-screen flex flex-col font-sans antialiased">
+
+    <!-- ========================================== -->
+    <!-- 1. PIN SECURITY LOCK SCREEN (CODE: 7017) -->
+    <!-- ========================================== -->
+    <div id="pin-screen" class="fixed inset-0 z-50 bg-gradient-to-br from-stone-900 via-stone-950 to-stone-900 flex items-center justify-center p-4">
+        <div class="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-7 shadow-2xl border border-stone-200 text-center space-y-5" id="pin-card">
+            
+            <!-- Logo & Brand Header -->
+            <div class="space-y-2">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-amber-50 border border-orange-200 p-1 shadow-md flex items-center justify-center overflow-hidden">
+                    <img src="assets/logo.jpg" alt="Food Junction" class="w-full h-full object-contain">
+                </div>
+                <h1 class="text-xl font-black font-brand tracking-wide text-brand-gradient">FOOD JUNCTION</h1>
+                <p class="text-xs font-bold text-stone-500 uppercase tracking-widest">Admin Security Portal</p>
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-[10px] font-bold">
+                    <i class="fa-solid fa-shield-halved text-orange-600"></i>
+                    <span>Enter 4-Digit Security PIN</span>
+                </div>
+            </div>
+
+            <!-- PIN Digit Dots (4 Dots) -->
+            <div class="flex items-center justify-center gap-3.5 py-2">
+                <div class="pin-dot w-4 h-4 rounded-full border-2 border-stone-300 bg-stone-100" id="pindot-0"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border-2 border-stone-300 bg-stone-100" id="pindot-1"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border-2 border-stone-300 bg-stone-100" id="pindot-2"></div>
+                <div class="pin-dot w-4 h-4 rounded-full border-2 border-stone-300 bg-stone-100" id="pindot-3"></div>
+            </div>
+
+            <!-- Error / Status Notice -->
+            <div id="pin-status-msg" class="text-xs font-bold min-h-[20px] text-stone-400">
+                <span>Enter PIN code (7017) to unlock</span>
+            </div>
+
+            <!-- Numeric Keypad Grid -->
+            <div class="grid grid-cols-3 gap-2.5 pt-1 max-w-[280px] mx-auto select-none">
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="1">1</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="2">2</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="3">3</button>
+
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="4">4</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="5">5</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="6">6</button>
+
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="7">7</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="8">8</button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="9">9</button>
+
+                <button id="btn-pin-clear" class="py-3 rounded-2xl bg-red-50 hover:bg-red-100 active:scale-95 text-sm font-bold text-red-600 border border-red-200 shadow-xs transition" title="Clear">
+                    <i class="fa-solid fa-delete-left text-base"></i>
+                </button>
+                <button class="keypad-btn py-3 rounded-2xl bg-stone-50 hover:bg-orange-50 active:scale-95 text-xl font-bold text-stone-800 border border-stone-200 shadow-xs transition" data-num="0">0</button>
+                <button id="btn-pin-enter" class="py-3 rounded-2xl bg-orange-600 hover:bg-orange-500 active:scale-95 text-sm font-bold text-white shadow-md transition" title="Unlock">
+                    <i class="fa-solid fa-unlock text-base"></i>
+                </button>
+            </div>
+
+            <!-- Back to Menu link -->
+            <div class="pt-2">
+                <a href="index.html" class="text-xs font-semibold text-stone-500 hover:text-orange-600 transition flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left text-[10px]"></i>
+                    <span>Back to Customer Menu</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. UNLOCKED ADMIN DASHBOARD -->
+    <!-- ========================================== -->
+    <div id="admin-dashboard" class="hidden flex-1 flex flex-col">
+        
+        <!-- Top Admin Header -->
+        <header class="bg-white border-b border-stone-200 sticky top-0 z-30 shadow-xs">
+            <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
+                
+                <!-- Left Brand -->
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-amber-50 border border-orange-200 p-1 flex items-center justify-center overflow-hidden shadow-xs shrink-0">
+                        <img src="assets/logo.jpg" alt="Logo" class="w-full h-full object-contain">
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-black font-brand text-stone-900 text-base sm:text-lg tracking-wider">FOOD JUNCTION</span>
+                            <span class="px-2 py-0.5 rounded-full bg-orange-100 text-orange-800 font-bold text-[10px] uppercase">Admin</span>
+                        </div>
+                        <p class="text-[10px] sm:text-xs text-stone-500 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+                            <span>Store Live • Kasganj</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Quick Actions -->
+                <div class="flex items-center gap-2">
+                    <a href="index.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs flex items-center gap-1.5 transition" title="Open Public Menu">
+                        <i class="fa-solid fa-globe text-stone-500"></i>
+                        <span class="hidden sm:inline">View Menu</span>
+                    </a>
+                    <button id="btn-quick-export" class="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs flex items-center gap-1.5 transition shadow-xs" title="Export Orders to Excel CSV">
+                        <i class="fa-solid fa-file-excel text-emerald-600"></i>
+                        <span class="hidden sm:inline">Export Excel</span>
+                    </button>
+                    <button id="btn-admin-logout" class="px-3 py-1.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold text-xs flex items-center gap-1.5 transition" title="Lock Admin Portal">
+                        <i class="fa-solid fa-power-off text-red-600"></i>
+                        <span class="hidden sm:inline">Logout</span>
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <main class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-6 flex-1 w-full">
+            
+            <!-- EXECUTIVE METRICS OVERVIEW (4 STATS CARDS) -->
+            <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                
+                <!-- Card 1: Menu Opens / Visits -->
+                <div class="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-orange-300 transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-stone-500 uppercase tracking-wider">Menu Opens</span>
+                        <div class="w-8 h-8 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 font-mono" id="stat-total-visits">0</h3>
+                        <p class="text-[11px] text-stone-500 mt-1 flex items-center gap-1">
+                            <span class="text-emerald-700 font-bold" id="stat-today-visits">+0 today</span>
+                            <span>•</span>
+                            <span id="stat-unique-visitors">0 unique</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Food Orders Count -->
+                <div class="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-emerald-300 transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-stone-500 uppercase tracking-wider">Orders Placed</span>
+                        <div class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 font-mono" id="stat-total-orders">0</h3>
+                        <p class="text-[11px] text-stone-500 mt-1 flex items-center gap-1">
+                            <span class="text-emerald-700 font-bold" id="stat-today-orders">+0 today</span>
+                            <span>•</span>
+                            <span id="stat-conv-rate">0% conv.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Total Sales / Order Volume -->
+                <div class="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-amber-300 transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-stone-500 uppercase tracking-wider">Order Volume</span>
+                        <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-indian-rupee-sign"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-orange-700 font-mono" id="stat-total-revenue">₹0</h3>
+                        <p class="text-[11px] text-stone-500 mt-1 flex items-center gap-1">
+                            <span>Saved:</span>
+                            <span class="text-emerald-700 font-bold" id="stat-total-savings">₹0 (10% Off)</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Customer Contacts Saved -->
+                <div class="bg-white rounded-2xl p-4 border border-stone-200/90 shadow-xs flex flex-col justify-between hover:border-blue-300 transition">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-stone-500 uppercase tracking-wider">Customers Saved</span>
+                        <div class="w-8 h-8 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-sm">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-stone-900 font-mono" id="stat-total-customers">0</h3>
+                        <p class="text-[11px] text-stone-500 mt-1">
+                            <span class="text-blue-700 font-bold">Kasganj Phone Directory</span>
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- NAVIGATION TABS -->
+            <div class="flex items-center gap-2 border-b border-stone-200 overflow-x-auto no-scrollbar pb-1">
+                <button class="admin-tab active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border transition shrink-0 bg-orange-600 text-white border-orange-600 shadow-xs" data-tab="orders">
+                    <i class="fa-solid fa-utensils text-xs"></i>
+                    <span>Food Orders (<span id="tab-orders-count">0</span>)</span>
+                </button>
+                <button class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border transition shrink-0 bg-white text-stone-600 border-stone-200 hover:border-orange-300 hover:text-orange-600" data-tab="customers">
+                    <i class="fa-solid fa-address-book text-xs"></i>
+                    <span>Customer Contacts (<span id="tab-cust-count">0</span>)</span>
+                </button>
+                <button class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border transition shrink-0 bg-white text-stone-600 border-stone-200 hover:border-orange-300 hover:text-orange-600" data-tab="analytics">
+                    <i class="fa-solid fa-chart-line text-xs"></i>
+                    <span>Visitor Insights</span>
+                </button>
+                <button class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border transition shrink-0 bg-white text-stone-600 border-stone-200 hover:border-orange-300 hover:text-orange-600" data-tab="offers">
+                    <i class="fa-solid fa-tags text-xs"></i>
+                    <span>Offers & Banners</span>
+                </button>
+                <button class="admin-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 border transition shrink-0 bg-white text-stone-600 border-stone-200 hover:border-orange-300 hover:text-orange-600" data-tab="settings">
+                    <i class="fa-solid fa-download text-xs"></i>
+                    <span>Export & Backup</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: FOOD ORDERS SECTION -->
+            <section id="panel-orders" class="admin-panel space-y-4">
+                
+                <!-- Action / Filter Toolbar -->
+                <div class="bg-white rounded-2xl p-3 sm:p-4 border border-stone-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    
+                    <!-- Search Input -->
+                    <div class="relative flex-1 max-w-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                        <input type="text" id="orders-search-input" placeholder="Search orders by customer name, phone, or address..." 
+                               class="w-full pl-8 pr-4 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-orange-500 outline-none transition">
+                    </div>
+
+                    <!-- Status Filter & Action Buttons -->
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <select id="orders-status-filter" class="px-3 py-2 text-xs font-bold rounded-xl bg-stone-50 border border-stone-200 text-stone-700 outline-none">
+                            <option value="all">All Statuses</option>
+                            <option value="Received">Received</option>
+                            <option value="Cooking">Cooking</option>
+                            <option value="Out for Delivery">Out for Delivery</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                        <button id="btn-add-manual-order" class="px-3 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition active:scale-95">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>New Order</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Orders Container -->
+                <div id="orders-container" class="space-y-3">
+                    <!-- Populated dynamically via js/admin.js -->
+                </div>
+
+            </section>
+
+            <!-- TAB 2: CUSTOMER CONTACTS DIRECTORY -->
+            <section id="panel-customers" class="admin-panel hidden space-y-4">
+                
+                <div class="bg-white rounded-2xl p-3 sm:p-4 border border-stone-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="relative flex-1 max-w-md">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+                        <input type="text" id="customers-search-input" placeholder="Search customers by name, phone number, or locality..." 
+                               class="w-full pl-8 pr-4 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:border-orange-500 outline-none transition">
+                    </div>
+                    <button id="btn-export-customers-csv" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs transition active:scale-95">
+                        <i class="fa-solid fa-file-csv"></i>
+                        <span>Export Contacts CSV</span>
+                    </button>
+                </div>
+
+                <!-- Customer Table Container -->
+                <div class="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs text-stone-700">
+                            <thead class="bg-stone-50 border-b border-stone-200 text-stone-500 uppercase font-extrabold text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="py-3 px-4">Customer Name</th>
+                                    <th class="py-3 px-4">Contact (WhatsApp/Call)</th>
+                                    <th class="py-3 px-4">Delivery Address (Kasganj)</th>
+                                    <th class="py-3 px-4 text-center">Total Orders</th>
+                                    <th class="py-3 px-4 text-right">Total Spent</th>
+                                    <th class="py-3 px-4 text-right">Last Order</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customers-table-body" class="divide-y divide-stone-100">
+                                <!-- Populated dynamically via js/admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TAB 3: VISITOR INSIGHTS -->
+            <section id="panel-analytics" class="admin-panel hidden space-y-4">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Daily Visits Card -->
+                    <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-xs space-y-3">
+                        <div class="flex items-center justify-between border-b border-stone-100 pb-2.5">
+                            <h3 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-days text-orange-600"></i>
+                                <span>Recent Daily Menu Opens</span>
+                            </h3>
+                            <span class="text-xs text-stone-500 font-mono" id="analytics-active-date"></span>
+                        </div>
+                        <div id="analytics-daily-list" class="space-y-2">
+                            <!-- Populated dynamically via js/admin.js -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Traffic Log -->
+                    <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-xs space-y-3">
+                        <div class="flex items-center justify-between border-b border-stone-100 pb-2.5">
+                            <h3 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-emerald-600"></i>
+                                <span>Recent Live Visits Log</span>
+                            </h3>
+                            <span class="text-xs text-stone-400">Last 30 visits</span>
+                        </div>
+                        <div id="analytics-recent-logs" class="space-y-1.5 max-h-[360px] overflow-y-auto no-scrollbar pr-1">
+                            <!-- Populated dynamically via js/admin.js -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- TAB 4: OFFERS & ROW BANNERS MANAGEMENT -->
+            <section id="panel-offers" class="admin-panel hidden space-y-4">
+                
+                <!-- Offers Header & Quick Presets -->
+                <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200 shadow-xs space-y-3">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+                        <div>
+                            <h3 class="font-extrabold text-stone-900 text-base flex items-center gap-2">
+                                <i class="fa-solid fa-bullhorn text-orange-600"></i>
+                                <span>Offer & Top Row Banner Settings</span>
+                            </h3>
+                            <p class="text-xs text-stone-500 mt-0.5">Control live offers, discount percentage, and top marquee row for customers</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="btn-save-offers" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 active:scale-95 text-white font-bold text-xs flex items-center gap-1.5 shadow-md transition">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save & Apply Offers</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1-Click Fast Offer Presets -->
+                    <div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-400 block mb-2">1-Click Quick Presets (Click to Auto-fill)</span>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 border border-orange-200 text-orange-800 font-bold text-xs transition" data-preset="food10">
+                                🍕 Standard 10% Off (Code: FOOD10)
+                            </button>
+                            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 border border-stone-300 text-stone-700 font-bold text-xs transition" data-preset="no-discount">
+                                🍽️ No Discount / Regular Pricing (0% Off)
+                            </button>
+                            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-800 font-bold text-xs transition" data-preset="weekend">
+                                🔥 Weekend Special (15% Off, Code: WEEKEND)
+                            </button>
+                            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 font-bold text-xs transition" data-preset="newyear">
+                                🎊 New Year Dhamaka (10% Off, Code: NEWYEAR)
+                            </button>
+                            <button type="button" class="preset-btn px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-800 font-bold text-xs transition" data-preset="diwali">
+                                🪔 Diwali Festive (10% Off, Code: DIWALI10)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Preview Card -->
+                <div class="bg-stone-50 rounded-2xl p-3 sm:p-4 border border-stone-200 space-y-2">
+                    <span class="text-[10px] font-extrabold uppercase tracking-wider text-stone-500 flex items-center gap-1.5">
+                        <i class="fa-solid fa-eye text-orange-600"></i> Live Customer Menu Preview
+                    </span>
+
+                    <!-- Mini Top Strip Preview -->
+                    <div id="preview-marquee-strip" class="p-2 rounded-xl text-white text-[11px] font-bold overflow-hidden bg-gradient-to-r from-orange-600 via-amber-500 to-orange-600 shadow-xs flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-2 truncate">
+                            <span id="preview-marquee-text" class="truncate">🔥 SPECIAL FOOD OFFER: FLAT 10% OFF ON ALL ORDERS</span>
+                            <span id="preview-marquee-code" class="bg-white text-orange-600 text-[9px] px-1.5 py-0.2 rounded-full font-mono">CODE: FOOD10</span>
+                        </div>
+                        <span class="text-[10px] text-orange-200 shrink-0">Top Row</span>
+                    </div>
+
+                    <!-- Mini Offer Card Preview -->
+                    <div id="preview-offer-card" class="p-3 rounded-xl bg-white border border-orange-200 shadow-2xs flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-sm shrink-0">
+                                <i class="fa-solid fa-tag"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-1.5">
+                                    <span id="preview-badge" class="px-1.5 py-0.2 rounded-full bg-orange-100 text-orange-800 text-[9px] font-extrabold uppercase">Special Food Offer</span>
+                                    <span id="preview-discount-tag" class="text-[10px] text-emerald-700 font-bold">10% OFF Active</span>
+                                </div>
+                                <h4 id="preview-title" class="font-black text-stone-900 text-xs mt-0.5">FLAT 10% OFF ON ALL FOODS</h4>
+                            </div>
+                        </div>
+                        <div id="preview-code-box" class="px-2 py-1 rounded-lg bg-stone-100 text-orange-600 font-mono font-bold text-[10px] shrink-0 border border-orange-200">
+                            FOOD10
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Form Grid (2 Columns) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Form Card 1: Top Marquee Row Offer Settings -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200 shadow-xs space-y-3.5">
+                        <div class="border-b border-stone-100 pb-2 flex items-center justify-between">
+                            <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-arrows-left-right text-orange-600"></i>
+                                <span>Top Row Marquee Offer</span>
+                            </h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="offer-show-marquee" class="sr-only peer" checked>
+                                <div class="w-9 h-5 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-600"></div>
+                                <span class="ml-2 text-xs font-bold text-stone-600">Visible</span>
+                            </label>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-stone-700 text-xs mb-1">Top Strip Rolling Text *</label>
+                            <textarea id="offer-marquee-text" rows="2" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-medium" placeholder="Text that scrolls across the top bar"></textarea>
+                            <span class="text-[10px] text-stone-400">Shows phone numbers, current offers, and festival messages</span>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-stone-700 text-xs mb-1">Top Bar Color Theme</label>
+                            <select id="offer-marquee-theme" class="w-full px-3 py-2 text-xs font-bold rounded-xl border border-stone-300 outline-none focus:border-orange-500">
+                                <option value="orange">Warm Orange & Amber Gradient (Food Junction)</option>
+                                <option value="emerald">Fresh Emerald & Teal (Green Pure Veg)</option>
+                                <option value="crimson">Royal Crimson & Gold (Special)</option>
+                                <option value="dark">Modern Dark Slate (Minimalist)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Form Card 2: Featured Hero Offer Card Settings -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200 shadow-xs space-y-3.5">
+                        <div class="border-b border-stone-100 pb-2 flex items-center justify-between">
+                            <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-id-card text-orange-600"></i>
+                                <span>Featured Hero Offer Banner</span>
+                            </h4>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="offer-show-card" class="sr-only peer" checked>
+                                <div class="w-9 h-5 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-orange-600"></div>
+                                <span class="ml-2 text-xs font-bold text-stone-600">Visible</span>
+                            </label>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold text-stone-700 text-xs mb-1">Offer Badge Text *</label>
+                                <input type="text" id="offer-badge-input" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500" placeholder="e.g. Special Offer">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-stone-700 text-xs mb-1">Coupon / Promo Code</label>
+                                <input type="text" id="offer-code-input" class="w-full px-3 py-2 text-xs font-mono font-bold rounded-xl border border-stone-300 outline-none focus:border-orange-500" placeholder="e.g. FOOD10">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-stone-700 text-xs mb-1">Offer Headline *</label>
+                            <input type="text" id="offer-title-input" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-bold" placeholder="e.g. FLAT 10% OFF ON ALL FOODS">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-stone-700 text-xs mb-1">Offer Description *</label>
+                            <textarea id="offer-desc-input" rows="2" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500" placeholder="Short description explaining the offer to customers"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Form Card 3: Menu Pricing Discount Engine -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200 shadow-xs space-y-3.5">
+                        <div class="border-b border-stone-100 pb-2">
+                            <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-percent text-orange-600"></i>
+                                <span>Menu Pricing Discount Engine</span>
+                            </h4>
+                            <p class="text-[11px] text-stone-500">Calculates discounted price across all 168 dishes and WhatsApp order cart</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold text-stone-700 text-xs mb-1">Discount Percentage (%) *</label>
+                                <div class="relative">
+                                    <input type="number" id="offer-discount-percent" min="0" max="100" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-mono font-bold text-orange-600" placeholder="10">
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 font-bold text-xs">%</span>
+                                </div>
+                                <span class="text-[10px] text-stone-400">Put <strong>0</strong> for regular menu pricing</span>
+                            </div>
+
+                            <div>
+                                <label class="block font-bold text-stone-700 text-xs mb-1">Bill & WhatsApp Discount Label *</label>
+                                <input type="text" id="offer-discount-label" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500" placeholder="e.g. Special 10% Discount">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-stone-700 text-xs mb-1">Footer Message Strip</label>
+                            <input type="text" id="offer-footer-text" class="w-full px-3 py-2 text-xs rounded-xl border border-stone-300 outline-none focus:border-orange-500" placeholder="e.g. ✨ Taste That Brings You Together — Kasganj">
+                        </div>
+                    </div>
+
+                    <!-- Form Card 4: Action Controls & Summary -->
+                    <div class="bg-white rounded-2xl p-4 sm:p-5 border border-stone-200 shadow-xs flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="font-bold text-stone-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                                <span>Apply to Customer Menu</span>
+                            </h4>
+                            <p class="text-xs text-stone-500 leading-relaxed">
+                                Once saved, these settings immediately update the public menu: the top row banner, hero card, 168 dish prices, and WhatsApp order bill.
+                            </p>
+                            <div class="p-3 rounded-xl bg-orange-50 border border-orange-200/80 text-xs text-orange-900 space-y-1">
+                                <span class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-lightbulb text-orange-600"></i> Tip:</span>
+                                <p class="text-[11px]">Agar abhi koi discount nahi dena hai, to Discount Percentage me <strong>0</strong> rakh dein aur <strong>"No Discount / Regular Pricing"</strong> preset click karein.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-2 border-t border-stone-100">
+                            <button type="button" id="btn-reset-offers" class="px-4 py-2.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs transition">
+                                Reset Defaults
+                            </button>
+                            <button type="button" id="btn-save-offers-bottom" class="flex-1 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 active:scale-95 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <span>Save & Apply Offers</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- TAB 5: EXPORT & DATA MANAGEMENT -->
+            <section id="panel-settings" class="admin-panel hidden space-y-4">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Export Card -->
+                    <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-xs space-y-4">
+                        <div class="border-b border-stone-100 pb-3">
+                            <h3 class="font-extrabold text-stone-900 text-base flex items-center gap-2">
+                                <i class="fa-solid fa-file-arrow-down text-emerald-600"></i>
+                                <span>Export Data to Excel / CSV</span>
+                            </h3>
+                            <p class="text-xs text-stone-500 mt-0.5">Download full orders & customer directories in spreadsheet format</p>
+                        </div>
+
+                        <div class="space-y-2.5">
+                            <button id="btn-export-orders-csv" class="w-full p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 font-bold text-xs flex items-center justify-between transition shadow-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-file-excel text-emerald-600 text-lg"></i>
+                                    <div class="text-left">
+                                        <span class="block">Export All Orders (.CSV)</span>
+                                        <span class="text-[10px] text-emerald-700 font-normal">Customer names, items, prices, dates & addresses</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-download text-xs"></i>
+                            </button>
+
+                            <button id="btn-export-cust-csv-panel" class="w-full p-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-300 text-blue-800 font-bold text-xs flex items-center justify-between transition shadow-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-address-book text-blue-600 text-lg"></i>
+                                    <div class="text-left">
+                                        <span class="block">Export Customer Directory (.CSV)</span>
+                                        <span class="text-[10px] text-blue-700 font-normal">Phone numbers and delivery addresses for WhatsApp promotions</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-download text-xs"></i>
+                            </button>
+
+                            <button id="btn-export-backup-json" class="w-full p-3 rounded-xl bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-800 font-bold text-xs flex items-center justify-between transition shadow-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-database text-orange-600 text-lg"></i>
+                                    <div class="text-left">
+                                        <span class="block">Download Full Backup (.JSON)</span>
+                                        <span class="text-[10px] text-stone-500 font-normal">Complete backup of all analytics, orders, and customer data</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-download text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Database Management & Tools -->
+                    <div class="bg-white rounded-2xl p-5 border border-stone-200 shadow-xs space-y-4">
+                        <div class="border-b border-stone-100 pb-3">
+                            <h3 class="font-extrabold text-stone-900 text-base flex items-center gap-2">
+                                <i class="fa-solid fa-sliders text-orange-600"></i>
+                                <span>Data Controls & Testing</span>
+                            </h3>
+                            <p class="text-xs text-stone-500 mt-0.5">Manage demo data, restore backups, or reset analytics</p>
+                        </div>
+
+                        <div class="space-y-2.5">
+                            <button id="btn-seed-sample-data" class="w-full p-3 rounded-xl bg-orange-50 hover:bg-orange-100 border border-orange-200 text-orange-800 font-bold text-xs flex items-center justify-between transition shadow-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-orange-600 text-lg"></i>
+                                    <div class="text-left">
+                                        <span class="block">Load Realistic Sample Orders</span>
+                                        <span class="text-[10px] text-orange-700 font-normal">Adds sample Kasganj orders to test panel features</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+
+                            <!-- Restore Backup Input -->
+                            <div class="p-3 rounded-xl bg-stone-50 border border-stone-200 flex items-center justify-between gap-2">
+                                <div class="text-left">
+                                    <span class="block text-xs font-bold text-stone-800">Restore Backup (.JSON)</span>
+                                    <span class="text-[10px] text-stone-500 font-normal">Upload previously exported JSON file</span>
+                                </div>
+                                <label class="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-white font-bold text-xs cursor-pointer shadow-xs">
+                                    <span>Upload</span>
+                                    <input type="file" id="file-restore-backup" accept=".json" class="hidden">
+                                </label>
+                            </div>
+
+                            <button id="btn-clear-all-data" class="w-full p-3 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-red-700 font-bold text-xs flex items-center justify-between transition shadow-xs">
+                                <div class="flex items-center gap-2.5">
+                                    <i class="fa-solid fa-trash-can text-red-600 text-lg"></i>
+                                    <div class="text-left">
+                                        <span class="block">Clear Orders & Reset Data</span>
+                                        <span class="text-[10px] text-red-600 font-normal">Removes stored order logs & resets visitor stats</span>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-triangle-exclamation text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- Admin Footer -->
+        <footer class="bg-white border-t border-stone-200 py-4 px-4 text-center text-xs text-stone-500">
+            <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+                <span>Food Junction Admin Management Portal • Security PIN: <strong class="text-orange-600 font-mono">7017</strong></span>
+                <span class="text-stone-400">Kasganj, Uttar Pradesh • Near Laddo Sweets, Thandi Sadak</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 3. MANUAL NEW ORDER MODAL -->
+    <!-- ========================================== -->
+    <div id="manual-order-modal" class="fixed inset-0 z-50 bg-stone-900/70 backdrop-blur-xs hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-white rounded-3xl border border-stone-200 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <div class="p-4 bg-orange-50 border-b border-orange-100 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center text-sm shadow-xs">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-stone-900 text-sm">Add Phone / Offline Order</h3>
+                        <p class="text-[10px] text-stone-500">Manually record a customer order</p>
+                    </div>
+                </div>
+                <button id="btn-close-manual-modal" class="w-7 h-7 rounded-lg bg-white border border-stone-200 text-stone-500 hover:text-stone-800 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                </button>
+            </div>
+
+            <form id="form-manual-order" class="p-4 sm:p-5 overflow-y-auto space-y-3.5 text-xs" onsubmit="return false;">
+                <div>
+                    <label class="block font-bold text-stone-700 mb-1">Customer Full Name *</label>
+                    <input type="text" id="manual-cust-name" required placeholder="e.g. Amit Varshney" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-stone-700 mb-1">Contact Number (10-Digit Mobile) *</label>
+                    <input type="tel" id="manual-cust-phone" required placeholder="e.g. 9876543210" maxlength="10" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-mono">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-stone-700 mb-1">Delivery Address in Kasganj *</label>
+                    <textarea id="manual-cust-address" required rows="2" placeholder="House/Shop #, Street/Colony, Landmark, Kasganj" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-stone-700 mb-1">Ordered Dishes (Items & Quantities) *</label>
+                    <textarea id="manual-items-text" required rows="3" placeholder="e.g. 1x Shahi Paneer (Full), 4x Butter Naan, 1x Kurkure Momos" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500"></textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-stone-700 mb-1">Final Bill Amount (₹) *</label>
+                        <input type="number" id="manual-final-amount" required placeholder="e.g. 396" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-mono font-bold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-stone-700 mb-1">Order Status</label>
+                        <select id="manual-order-status" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500 font-bold">
+                            <option value="Received">Received</option>
+                            <option value="Cooking">Cooking</option>
+                            <option value="Out for Delivery">Out for Delivery</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-stone-700 mb-1">Cooking Note / Instructions (Optional)</label>
+                    <input type="text" id="manual-cust-note" placeholder="e.g. Spicy gravy, send onion salad" class="w-full px-3 py-2 rounded-xl border border-stone-300 outline-none focus:border-orange-500">
+                </div>
+
+                <div class="pt-3 border-t border-stone-200 flex items-center justify-end gap-2">
+                    <button type="button" id="btn-cancel-manual" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs">Cancel</button>
+                    <button type="submit" id="btn-save-manual-order" class="px-5 py-2 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs shadow-md">Save Order</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/admin.js"></script>
+</body>
+</html>
